@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <getopt.h>
 #include <stdbool.h>
 
 // Initial grid SIZE constant
@@ -12,8 +13,26 @@ bool valid(int grid[][SIZE], int n, int row, int col);
 bool isin_sub(int grid[][SIZE], int n, int row, int col);
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
+
+    // Define optione
+    char *options = ":f:n";
+
+    // No arguments passed ask for input
+    if (argc == 1)
+    {   
+        // Ask for user inputed sudoku TODO
+        printf("0 arguments passed");
+        return 0;
+    }
+
+    char option = getopt(argc, argv, options);
+    //if (option
+    printf("Option: %c\n", option);
+
+
+
     int g[9][9] = {
     {0,2,3,4,5,6,7,8,9},
     {0,2,3,4,5,6,7,8,9},
@@ -26,7 +45,7 @@ int main(void)
     {2,2,3,4,5,6,7,8,9},
     };
     
-    print_grid(g);
+    //print_grid(g);
 
 }
 
