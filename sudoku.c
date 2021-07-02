@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <getopt.h>
 #include <stdbool.h>
 
 // Initial grid SIZE constant
@@ -14,8 +15,34 @@ bool isin_sub(int grid[][SIZE], int n, int row, int col);
 void solve(int grid[][SIZE]);
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
+    // Options & argument selection
+    char *options = ":f:o:i";
+
+    char * out_file = NULL;
+    char * inp_file = NULL;
+
+    int option;
+    while ((option = getopt(argc, argv, options)) != -1)
+    {
+        printf("Option: %c\n", option);
+        switch (option)
+        {
+            case 'f':
+                inp_file = optarg;
+                printf("Input file: %s\n", inp_file);
+                break;
+            case 'o':
+                out_file = optarg;
+                printf("Output file: %s\n", out_file);
+                break;
+            case 'i':
+                printf("Sudoku to be entered manually");
+                break;
+        }
+    }
+
     int grid[9][9] = {
     {4, 0, 0, 0, 0, 5, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 1, 9, 8},
@@ -27,16 +54,13 @@ int main(void)
     {0, 0, 0, 2, 0, 0, 9, 0, 7},
     {6, 4, 0, 3, 0, 0, 0, 0, 0},
     };
-
+    
     solve(grid);
-
 }
 
-// Recursive solver attempt
+// Backtracking recursive sudoku solver
 void solve(int grid[][SIZE])
 {
-    //printf("Entering solve\n");
-    //print_grid(grid);
     for (int row = 0; row < SIZE; row++)
     {
         for (int col = 0; col < SIZE; col++)
@@ -45,17 +69,24 @@ void solve(int grid[][SIZE])
             {
                 for (int n = 1; n <= SIZE; n++)
                 {
+                    // If n is valid, put it and solve new grid
                     if (valid(grid, n, row, col))
                     {
                         grid[row][col] = n;
                         solve(grid);
+
+                        // solve() returned, set box to 0 to backtrack
                         grid[row][col] = 0;
                     }
                 }
+                // No n worked, bad guess somewhere, return & backtrack
                 return;
             }
         }
     }
+    // All values filled, found a puzzle solution
+
+    // TODO end of loop, one solution is here, what to do, get more, print?
     printf("Seems like I am done\n");
     print_grid(grid);
     return;
