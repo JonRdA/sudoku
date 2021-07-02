@@ -15,21 +15,31 @@ bool isin_sub(int grid[][SIZE], int n, int row, int col);
 
 int main(int argc, char *argv[])
 {
+    // Options & argument selection
+    char *options = ":f:o:i";
 
-    // Define optione
-    char *options = ":f:n";
+    char * out_file = NULL;
+    char * inp_file = NULL;
 
-    // No arguments passed ask for input
-    if (argc == 1)
-    {   
-        // Ask for user inputed sudoku TODO
-        printf("0 arguments passed");
-        return 0;
+    int option;
+    while ((option = getopt(argc, argv, options)) != -1)
+    {
+        printf("Option: %c\n", option);
+        switch (option)
+        {
+            case 'f':
+                inp_file = optarg;
+                printf("Input file: %s\n", inp_file);
+                break;
+            case 'o':
+                out_file = optarg;
+                printf("Output file: %s\n", out_file);
+                break;
+            case 'i':
+                printf("Sudoku to be entered manually");
+                break;
+        }
     }
-
-    char option = getopt(argc, argv, options);
-    //if (option
-    printf("Option: %c\n", option);
 
 
 

@@ -6,8 +6,9 @@ the grid is written.
 
 ## TODO
 * I/O of arguments
-  * Option `-f` for file `-n` for new and no option for user input `-o` for output
-  * Implement argument separation and protection
-  * File reading 
-* Actual recursive solving
-* Branch implementation with rows and subgrids
+  * Option `-f` reading from file `-o` output file & `-i` manual input
+  * File reading writting
+  * User input, can rows be printed after input, already formatted?
+
+## DOUBTS
+* Use flag for options, or call functions from getopt switch?
