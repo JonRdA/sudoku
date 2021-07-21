@@ -2,6 +2,7 @@
 
 #include "solver.h"
 
+
 // Backtracking recursive sudoku solver
 void solve(int grid[][SIZE])
 {

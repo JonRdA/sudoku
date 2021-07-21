@@ -1,8 +1,10 @@
 // Declares a solvers' functionallity
 
+#ifndef SOLVER_H
+#define SOLVER_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <stdbool.h>
 
 // Initial grid SIZE constant
@@ -16,3 +18,4 @@ bool isin_col(int grid[][SIZE], int n, int col);
 bool isin_sub(int grid[][SIZE], int n, int row, int col);
 void print_grid(int grid[][SIZE]);
 
+#endif
