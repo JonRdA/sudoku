@@ -4,7 +4,7 @@
 
 
 // Backtracking recursive sudoku solver
-void solve(int grid[][SIZE])
+void solve(void)
 {
     for (int row = 0; row < SIZE; row++)
     {
@@ -15,10 +15,10 @@ void solve(int grid[][SIZE])
                 for (int n = 1; n <= SIZE; n++)
                 {
                     // If n is valid, put it and solve new grid
-                    if (valid(grid, n, row, col))
+                    if (valid(n, row, col))
                     {
                         grid[row][col] = n;
-                        solve(grid);
+                        solve();
 
                         // solve() returned, set box to 0 to backtrack
                         grid[row][col] = 0;
@@ -33,16 +33,16 @@ void solve(int grid[][SIZE])
 
     // TODO end of loop, one solution is here, what to do, get more, print?
     printf("Seems like I am done\n");
-    print_grid(grid);
-    return;
+    print_grid();
+    //return;
 }
 
 // Check wether a number can be put in position [row][col]
-bool valid(int grid[][SIZE], int n, int row, int col)
+bool valid(int n, int row, int col)
 {
-    bool inrow = isin_row(grid, n, row);
-    bool incol = isin_col(grid, n, col);
-    bool insub = isin_sub(grid, n, row, col);
+    bool inrow = isin_row(n, row);
+    bool incol = isin_col(n, col);
+    bool insub = isin_sub(n, row, col);
     //printf("%i, %i, %i\n", inrow, incol, insub);
     if(inrow == false & incol == false & insub == false)
     {
@@ -52,7 +52,7 @@ bool valid(int grid[][SIZE], int n, int row, int col)
 }
 
 // Check wether number n is in row
-bool isin_row(int grid[][SIZE], int n, int row)
+bool isin_row(int n, int row)
 {
     for (int j = 0; j < SIZE; j++)
     {
@@ -65,7 +65,7 @@ bool isin_row(int grid[][SIZE], int n, int row)
 }
 
 // Check wheter number is in column
-bool isin_col(int grid[][SIZE], int n, int col)
+bool isin_col(int n, int col)
 {
     for (int i = 0; i < SIZE; i++)
     {
@@ -78,7 +78,7 @@ bool isin_col(int grid[][SIZE], int n, int col)
 }
 
 // Check wether number is in subgrid
-bool isin_sub(int grid[][SIZE], int n, int row, int col)
+bool isin_sub(int n, int row, int col)
 {
     int r0 = row / 3 * 3;
     int r1 = r0 + 3;
@@ -100,7 +100,7 @@ bool isin_sub(int grid[][SIZE], int n, int row, int col)
 }
 
 // Formatted representation of sudoku grid
-void print_grid(int grid[][SIZE])
+void print_grid(void)
 {
     printf("\n");
     for (int row = 0; row < SIZE; row++)
