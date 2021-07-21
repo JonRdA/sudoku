@@ -1,7 +1,6 @@
-// Implements helper functions to solve a sudoku
+// Implements helper functions to solve a sudoku.
 
 #include "solver.h"
-
 
 // Backtracking recursive sudoku solver
 void solve(void)
@@ -14,7 +13,7 @@ void solve(void)
             {
                 for (int n = 1; n <= SIZE; n++)
                 {
-                    // If n is valid, put it and solve new grid
+                    // If n is valid, put it and solve new grid.
                     if (valid(n, row, col))
                     {
                         grid[row][col] = n;
@@ -26,31 +25,25 @@ void solve(void)
                             return;
                         }
 
-                        // solve() returned, set box to 0 to backtrack
+                        // solve() returned, set box to 0 to backtrack.
                         grid[row][col] = 0;
                     }
                 }
-                // No n worked, bad guess somewhere, return & backtrack
+                // No n worked, bad guess somewhere, return & backtrack.
                 return;
             }
         }
     }
-    // All values filled, found a puzzle solution
-
-    // TODO end of loop, one solution is here, what to do, get more, print?
-    printf("Seems like I am done\n");
-    print_grid();
+    // All values filled, found a puzzle solution, stop execution.
     run = false;
-    //return;
 }
 
-// Check wether a number can be put in position [row][col]
+// Check wether a number can be put in position [row][col].
 bool valid(int n, int row, int col)
 {
     bool inrow = isin_row(n, row);
     bool incol = isin_col(n, col);
     bool insub = isin_sub(n, row, col);
-    //printf("%i, %i, %i\n", inrow, incol, insub);
     if(inrow == false & incol == false & insub == false)
     {
         return true;
@@ -58,7 +51,7 @@ bool valid(int n, int row, int col)
     return false;
 }
 
-// Check wether number n is in row
+// Check wether number n is in row.
 bool isin_row(int n, int row)
 {
     for (int j = 0; j < SIZE; j++)
@@ -71,7 +64,7 @@ bool isin_row(int n, int row)
     return false;
 }
 
-// Check wheter number is in column
+// Check wheter number is in column.
 bool isin_col(int n, int col)
 {
     for (int i = 0; i < SIZE; i++)
@@ -84,7 +77,7 @@ bool isin_col(int n, int col)
     return false;
 }
 
-// Check wether number is in subgrid
+// Check wether number is in subgrid.
 bool isin_sub(int n, int row, int col)
 {
     int r0 = row / 3 * 3;
@@ -95,10 +88,8 @@ bool isin_sub(int n, int row, int col)
     {
         for (int c = c0; c < c1; c++)
         {
-           // printf("Checking element [%i, %i]\tvalue: %i\n", r, c, grid[r][c]);
             if (grid[r][c] == n)
             {
-                //printf("Really? %i, %i, %i, %i\n", r, c, n, grid[r][c] );
                 return true;
             }
         }
@@ -106,7 +97,7 @@ bool isin_sub(int n, int row, int col)
     return false;
 }
 
-// Formatted representation of sudoku grid
+// Formatted representation of sudoku grid.
 void print_grid(void)
 {
     printf("\n");

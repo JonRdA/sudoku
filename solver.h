@@ -3,15 +3,7 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-// Initial grid SIZE constant
-#define SIZE 9
-
-int grid[SIZE][SIZE];
-bool run;
+#include "sudoku.h"
 
 // Function prototypes
 void solve(void);
