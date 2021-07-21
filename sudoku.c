@@ -10,6 +10,8 @@ bool load(char *fname);
 
 int main(int argc, char *argv[])
 {
+    run = true;
+
     // Options & argument selection
     char *options = ":f:o:i";
 

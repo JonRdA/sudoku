@@ -9,7 +9,9 @@
 
 // Initial grid SIZE constant
 #define SIZE 9
+
 int grid[SIZE][SIZE];
+bool run;
 
 // Function prototypes
 void solve(void);

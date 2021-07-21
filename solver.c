@@ -19,6 +19,12 @@ void solve(void)
                     {
                         grid[row][col] = n;
                         solve();
+                        
+                        // Stop execution once a solution was found.
+                        if (!run)
+                        {
+                            return;
+                        }
 
                         // solve() returned, set box to 0 to backtrack
                         grid[row][col] = 0;
@@ -34,6 +40,7 @@ void solve(void)
     // TODO end of loop, one solution is here, what to do, get more, print?
     printf("Seems like I am done\n");
     print_grid();
+    run = false;
     //return;
 }
 
