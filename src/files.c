@@ -16,6 +16,11 @@ bool load(char *fname)
     int i = 0, j = 0, count = 0;
     for (int c = fgetc(f); c != EOF; c = fgetc(f))
     {
+        // Accept '.' as an empty value, 0.
+        if (c == '.')
+        {
+            c = '0';
+        }
         if (isdigit(c))
         {
             // Check if grid is completely loaded.
@@ -79,5 +84,70 @@ bool save(char *fname)
     fprintf(f, "\n");
 
     fclose(f);
+    return true;
+}
+
+// Read and load grid from user input.
+bool input(void)
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        bool inserted;
+        do
+        {
+            char *text = ask_row(i);
+            inserted = insert_row(i, text);
+        }
+        while (!inserted);
+    }
+    return true;
+}
+
+// Prompt user for row values and return string.
+char *ask_row(int n)
+{
+    char *input_row = malloc(sizeof(char) * ROWSIZE);
+    printf("Row %i: ", n + 1);
+    fgets(input_row, ROWSIZE, stdin);
+    return input_row;
+}
+
+// Extract digits from string and construct row array.
+bool insert_row(int n, char * input_row)
+{
+    int ind = 0;        // Index to fill row
+    char c;
+
+    for (int i = 0; i < ROWSIZE; i++)
+    {
+        c = input_row[i];
+
+        // Accept '.' as an empty value, 0.
+        if (c == '.')
+        {
+            c = '0';
+        }
+
+        if (isdigit(c))
+        {
+            grid[n][ind] = c - '0';
+            ind++;
+        }
+
+        if (ind > SIZE)
+        {
+            printf("Too many numbers\n");
+            return false;
+        }
+    }
+
+    // Input loaded but not enough numbers loaded.
+    if (ind < SIZE)
+    {
+        printf("Too few numbers\n");
+        return false;
+    }
+
+    free(input_row);
     return true;
 }

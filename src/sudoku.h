@@ -9,8 +9,8 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-// Initial grid SIZE constant
-#define SIZE 9
+#define SIZE 9              // Grid side size.
+#define ROWSIZE 30          // Row size to read user input.
 
 int grid[SIZE][SIZE];       // Global sudoku grid.
 bool run;                   // Running flag to stop recursive execution.

@@ -4,6 +4,11 @@
 
 int main(int argc, char *argv[])
 {
+    if (argc < 2)
+    {
+        fprintf(stderr, "Missing puzzle to solve.\nTry 'sudoku --help'\n");
+        return 1;
+    }
     run = true;
 
     // Options & argument selection
@@ -15,25 +20,34 @@ int main(int argc, char *argv[])
     int option;
     while ((option = getopt(argc, argv, options)) != -1)
     {
-        printf("Option: %c\n", option);
         switch (option)
         {
             case 'f':
                 inp_file = optarg;
-                load(inp_file);
+                if (!load(inp_file))
+                {
+                    return 2;
+                }
                 break;
+
             case 'o':
                 out_file = optarg;
-                printf("Output file: %s\n", out_file);
                 break;
+
             case 'i':
-                printf("Sudoku to be entered manually");
+                printf("Enter sudoku\n");
+                printf("digits: [0-9] empty: ['0','.']\n\n");
+                input();
+                break;
+
+            case 'h':
+                // TODO Help printing function here
+                printf("Help to be entered printing");
                 break;
         }
     }
     print_grid();
-    solve();
-    print_grid();
+//    solve();
 
     if (out_file != NULL)
     {
