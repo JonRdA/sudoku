@@ -10,3 +10,4 @@
 # Output files
 out.*
 *.o
+out/
