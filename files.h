@@ -6,5 +6,6 @@
 #include "sudoku.h"
 
 bool load(char *fname);
+bool save(char *fname);
 
 #endif

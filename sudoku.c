@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
         {
             case 'f':
                 inp_file = optarg;
-                printf("Input file: %s\n", inp_file);
                 load(inp_file);
                 break;
             case 'o':
@@ -35,6 +34,11 @@ int main(int argc, char *argv[])
     print_grid();
     solve();
     print_grid();
+
+    if (out_file != NULL)
+    {
+        save(out_file);
+    }
     
 }
 

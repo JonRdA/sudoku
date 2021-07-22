@@ -31,8 +31,10 @@ void print_grid(void)
     printf("\n");
 }
 
+
 int main(void)
 {
-    load("input2.sdk");
+    print_grid();
+    save("testfile.sk");
 }
 

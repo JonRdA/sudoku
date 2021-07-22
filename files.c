@@ -9,7 +9,7 @@ bool load(char *fname)
     FILE *f = fopen(fname, "r");
     if (f == NULL)
     {
-        printf("Could not load file '%s'\n", fname);
+        fprintf(stderr, "Could not load file '%s'\n", fname);
         return false;
     }
 
@@ -21,7 +21,7 @@ bool load(char *fname)
             // Check if grid is completely loaded.
             if (count >= SIZE * SIZE)
             {
-                printf("Invalid input, too many numbers provided.\n");
+                fprintf(stderr, "Invalid input, too many numbers.\n");
                 return false;
             }
             // Row is complete, jump to next.
@@ -35,18 +35,49 @@ bool load(char *fname)
             grid[i][j] = c - '0'; 
             j++;
             count++;
-
-
         }
     }
 
     // Loading finished, check if enough numbers where loaded.
     if (count < SIZE * SIZE)
     {
-        printf("Invalid input, numbers missing.\n");
+        fprintf(stderr, "Invalid input, numbers missing.\n");
         return false;
     }
 
+    fclose(f);
     return true;
-    
+}
+
+// Save sudoku grid into file
+bool save(char *fname)
+{
+    FILE *f = fopen(fname, "w");
+    if (f == NULL)
+    {
+        fprintf(stderr, "Could not save to file\n");
+        return false;
+    }
+
+    fprintf(f, "\n");
+    for (int row = 0; row < SIZE; row++)
+    {
+        if (row % 3 == 0 & row != 0)
+        {
+            fprintf(f, " ----- + ----- + -----\n");
+        }
+        for (int col = 0; col < SIZE; col++)
+        {
+            if (col % 3 == 0 & col != 0)
+            {
+                fprintf(f, " |");
+            }
+            fprintf(f, " %i", grid[row][col]);
+        }
+        fprintf(f, "\n");
+    }
+    fprintf(f, "\n");
+
+    fclose(f);
+    return true;
 }
