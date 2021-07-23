@@ -44,7 +44,7 @@ bool valid(int n, int row, int col)
     bool inrow = isin_row(n, row);
     bool incol = isin_col(n, col);
     bool insub = isin_sub(n, row, col);
-    if(inrow == false & incol == false & insub == false)
+    if(!inrow & !incol & !insub)
     {
         return true;
     }
@@ -120,3 +120,27 @@ void print_grid(void)
     printf("\n");
 }
 
+// Check if the grid has any wrong number
+bool check_grid(void)
+{
+    int n, tmp;
+    for (int row = 0; row < SIZE; row++)
+    {
+        for (int col = 0; col < SIZE; col++)
+        {
+            n = grid[row][col];
+            if (n != 0)
+            {
+                // Make box = 0, otherwise its not compatible with itself.
+                grid[row][col] = 0;
+                if (!valid(n, row, col))
+                {
+                    fprintf(stderr, "Sudoku error at (%i, %i)\n", row, col);
+                    return false;
+                }
+                grid[row][col] = n;
+            }
+        }
+    }
+    return true;
+}

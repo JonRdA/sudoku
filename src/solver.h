@@ -11,6 +11,7 @@ bool valid(int n, int row, int col);
 bool isin_row(int n, int row);
 bool isin_col(int n, int col);
 bool isin_sub(int n, int row, int col);
+bool check_grid(void);
 void print_grid(void);
 
 #endif

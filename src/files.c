@@ -26,7 +26,7 @@ bool load(char *fname)
             // Check if grid is completely loaded.
             if (count >= SIZE * SIZE)
             {
-                fprintf(stderr, "Invalid input, too many numbers.\n");
+                fprintf(stderr, "Wrong input file: too many numbers.\n");
                 return false;
             }
             // Row is complete, jump to next.
@@ -46,7 +46,7 @@ bool load(char *fname)
     // Loading finished, check if enough numbers where loaded.
     if (count < SIZE * SIZE)
     {
-        fprintf(stderr, "Invalid input, numbers missing.\n");
+        fprintf(stderr, "Wrong input file: missing numbers.\n");
         return false;
     }
 
@@ -60,7 +60,7 @@ bool save(char *fname)
     FILE *f = fopen(fname, "w");
     if (f == NULL)
     {
-        fprintf(stderr, "Could not save to file\n");
+        fprintf(stderr, "Could not save to file '%s'.\n", fname);
         return false;
     }
 
@@ -144,7 +144,7 @@ bool insert_row(int n, char * input_row)
     // Input loaded but not enough numbers loaded.
     if (ind < SIZE)
     {
-        printf("Too few numbers\n");
+        printf("Missing numbers\n");
         return false;
     }
 

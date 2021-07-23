@@ -46,8 +46,10 @@ int main(int argc, char *argv[])
                 break;
         }
     }
+    check_grid();
     print_grid();
-//    solve();
+    solve();
+    print_grid();
 
     if (out_file != NULL)
     {
