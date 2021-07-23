@@ -20,7 +20,7 @@ void solve(void)
                         solve();
                         
                         // Stop execution once a solution was found.
-                        if (!run)
+                        if (max_sol <= 0)
                         {
                             return;
                         }
@@ -35,7 +35,8 @@ void solve(void)
         }
     }
     // All values filled, found a puzzle solution, stop execution.
-    run = false;
+    max_sol--;
+    print_grid();
 }
 
 // Check wether a number can be put in position [row][col].

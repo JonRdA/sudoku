@@ -100,6 +100,7 @@ bool input(void)
         }
         while (!inserted);
     }
+    printf("\n");
     return true;
 }
 

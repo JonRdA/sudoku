@@ -2,17 +2,19 @@
 #include "solver.h"
 #include "files.h"
 
+
 int main(int argc, char *argv[])
 {
     if (argc < 2)
     {
-        fprintf(stderr, "Missing puzzle to solve.\nTry 'sudoku --help'\n");
+        fprintf(stderr, "Missing puzzle to solve.\nTry 'sudoku -h'\n");
         return 1;
     }
-    run = true;
+    max_sol = 1;
+    loaded = false;
 
     // Options & argument selection
-    char *options = ":f:o:i";
+    char *options = ":f:o:imh";
 
     char * out_file = NULL;
     char * inp_file = NULL;
@@ -22,12 +24,16 @@ int main(int argc, char *argv[])
     {
         switch (option)
         {
+            case ':':
+                fprintf(stderr, "No filename specified\n");
+                return 1;
+
+            case '?':
+                fprintf(stderr, "Unrecognized option\n");
+                return 1;
+
             case 'f':
                 inp_file = optarg;
-                if (!load(inp_file))
-                {
-                    return 2;
-                }
                 break;
 
             case 'o':
@@ -35,21 +41,48 @@ int main(int argc, char *argv[])
                 break;
 
             case 'i':
-                printf("Enter sudoku\n");
-                printf("digits: [0-9] empty: ['0','.']\n\n");
+                printf("Enter sudoku\n\n");
                 input();
+                loaded = true;
                 break;
 
             case 'h':
                 // TODO Help printing function here
                 printf("Help to be entered printing");
+                return 2;
                 break;
+            case 'm':
+                max_sol = 100;
         }
     }
-    check_grid();
+
+    if (inp_file != NULL)
+    {
+        if (!load(inp_file))
+        {
+            return 3;
+        }
+        
+        loaded = true;
+    }
+     
+    // No grid loaded, exit program.
+    if (!loaded)
+    {
+        fprintf(stderr, "No sudoku specified\n");
+        return 4;
+    }
+
+    printf("Entered sudoku puzzle:\n");
     print_grid();
+
+    if (!check_grid())
+    {
+        return 5;
+    }
+    
+    printf("Solved sudoku puzzle:\n");
     solve();
-    print_grid();
 
     if (out_file != NULL)
     {

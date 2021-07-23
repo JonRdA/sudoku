@@ -13,6 +13,7 @@
 #define ROWSIZE 30          // Row size to read user input.
 
 int grid[SIZE][SIZE];       // Global sudoku grid.
-bool run;                   // Running flag to stop recursive execution.
+bool loaded;                // Flag to know if a grid was loaded.
+int max_sol;                // Maximum number of solutions to compute.
 
 #endif
